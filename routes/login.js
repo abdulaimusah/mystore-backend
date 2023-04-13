@@ -21,7 +21,9 @@ router.post('/', async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      res.status(401).json('Invalid username or password');
+      res.status(401).json({
+        res: 'Invalid username or password',
+      });
       return;
     }
 
@@ -29,7 +31,9 @@ router.post('/', async (req, res) => {
     // const passwordMatch = await bcrypt.compare(password, user.password);
     
     if ( !(password === user.password) ) {
-      res.status(401).json('Invalid username or password');
+      res.status(401).json({
+        res: 'Invalid username or password',
+      });
       return;
     }
 
