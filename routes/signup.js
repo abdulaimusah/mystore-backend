@@ -16,9 +16,9 @@ router.post("/", (req, res) => {
       
         usersCollection.insertOne({ username, password }, (err, result) => {
           if (err) {
-            res.status(500).send("An error occurred while inserting user");
+            res.status(500).json("An error occurred while inserting user");
           } else {
-            res.status(200).send("User created successfully");
+            res.status(200).json("User created successfully");
           }
         });
     

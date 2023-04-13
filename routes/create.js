@@ -22,11 +22,11 @@ router.post("/", async function(req, res) {
      .collection("products")
      .insertOne(matchDocument, function (err, result) {
        if (err) {
-         res.status(400).send("Error creating a product");
+         res.status(400).json("Error creating a product");
        }
        else {
          console.log("Added a product with id: ", result.insertedId);
-         res.status(204).send();
+         res.status(204).json("added");
        }
      });
 });

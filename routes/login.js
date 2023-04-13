@@ -21,22 +21,22 @@ router.post('/', async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      res.status(401).send('Invalid username or password');
+      res.status(401).json('Invalid username or password');
       return;
     }
 
     // Check if password is correct
     const passwordMatch = await bcrypt.compare(password, user.password);
     if (!passwordMatch) {
-      res.status(401).send('Invalid username or password');
+      res.status(401).json('Invalid username or password');
       return;
     }
 
     // Authentication successful
-    res.status(200).send('Authentication successful');
+    res.status(200).json('Authentication successful');
   } catch (error) {
     console.error(error);
-    res.status(500).send('Internal server error');
+    res.status(500).json('Internal server error');
   } 
 });
 
