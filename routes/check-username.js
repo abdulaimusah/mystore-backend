@@ -18,11 +18,15 @@ router.post("/", async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      res.status(401).json('Invalid username or password');
+      res.status(401).json({
+        res: 'Invalid username or password',
+      });
       return;
     }
     else {
-        res.status(200).json("user found");
+        res.status(200).json({
+            res: "user found",
+        });
     }
 
     

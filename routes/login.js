@@ -33,10 +33,14 @@ router.post('/', async (req, res) => {
     }
 
     // Authentication successful
-    res.status(200).json('Authentication successful');
+    res.status(200).json({
+        res: 'Authentication successful',
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json('Internal server error');
+    res.status(500).json({
+        res: 'Internal server error',
+    });
   } 
 });
 
