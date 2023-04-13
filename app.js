@@ -7,6 +7,9 @@ const dbo = require('./db/conn');
 var productsRouter = require('./routes/products');
 var productRouter = require('./routes/product');
 var createRouter = require('./routes/create');
+var signupRouter = require('./routes/signup');
+var loginRouter = require('./routes/login');
+var checkRouter = require('./routes/check-username');
 var cors = require('cors');
 
 
@@ -28,6 +31,9 @@ app.use('/create', createRouter);
 app.use('/product', productRouter);
 // get all products
 app.use('/products', productsRouter);
+app.use('/signup', signupRouter);
+app.use('/login', loginRouter);
+app.use('/check-username', checkRouter);
 
 // get index page
 app.get('/', function (req, res) {
