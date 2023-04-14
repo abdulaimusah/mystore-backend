@@ -18,7 +18,9 @@ router.get("/", async function (req, res) {
      .find({}).limit(4)
      .toArray(function (err, result) {
        if (err) {
-         res.status(400).send("Error fetching products!");
+         res.status(200).send({
+          res: "failed"
+         });
        }
        else {
          res.json(result);

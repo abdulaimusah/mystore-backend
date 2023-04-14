@@ -10,6 +10,9 @@ var createRouter = require('./routes/create');
 var signupRouter = require('./routes/signup');
 var loginRouter = require('./routes/login');
 var checkRouter = require('./routes/check-username');
+var updateRouter = require('./routes/update');
+var deleteRouter = require('./routes/delete');
+
 var cors = require('cors');
 
 
@@ -34,6 +37,8 @@ app.use('/products', productsRouter);
 app.use('/signup', signupRouter);
 app.use('/login', loginRouter);
 app.use('/check-username', checkRouter);
+app.use('/update', updateRouter);
+app.use('/delete', deleteRouter);
 
 // get index page
 app.get('/', function (req, res) {

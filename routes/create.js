@@ -26,7 +26,7 @@ router.post("/", async function(req, res) {
        }
        else {
          console.log("Added a product with id: ", result.insertedId);
-         res.status(204).json("added");
+         res.status(200).json("added");
        }
      });
 });

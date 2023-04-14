@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
 
     // Check if user exists
     if (!user) {
-      res.status(401).json({
+      res.status(200).json({
         res: 'Invalid username or password',
       });
       return;

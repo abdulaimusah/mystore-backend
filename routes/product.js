@@ -21,11 +21,13 @@ router.get("/:id", async function(req, res) {
      .collection("products")
      .findOne(query)
      .then(result => res.json(result))
-     .catch(err => console.error(err));
+     .catch(err => res.status(200).json({
+      res: "failed"
+     }));
 
   });
 
-
+/*
 router.post("/:id", async function(req, res) {
   
   const newPost = {
@@ -35,6 +37,6 @@ router.post("/:id", async function(req, res) {
      
   }
 });
-
+*/
 
 module.exports = router;
