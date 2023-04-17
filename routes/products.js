@@ -15,7 +15,7 @@ router.get("/", async function (req, res) {
 
     dbConnect
      .collection("products")
-     .find({}).limit(4)
+     .find({}).limit(30)
      .toArray(function (err, result) {
        if (err) {
          res.status(200).send({
