@@ -17,10 +17,10 @@ router.delete("/:id", async function(req, res) {
        .collection("products")
        .deleteOne(query)
        .then(reply => res.status(200).json({
-        res: "deleted"
+        _msg: "successful"
        }) )
-       .catch(error => res.status(200).json({
-        res: "failed"
+       .catch(error => res.status(500).json({
+        error: "Internal server error"
        }))
 });
 

@@ -18,12 +18,15 @@ router.get("/", async function (req, res) {
      .find({}).limit(30)
      .toArray(function (err, result) {
        if (err) {
-         res.status(200).send({
-          res: "failed"
+         res.status(500).json({
+          error: "Internal server error"
          });
        }
        else {
-         res.json(result);
+         res.status(200).json({
+          msg: "successful",
+          data: result
+         })
        }
      });
 });

@@ -29,10 +29,11 @@ router.put("/:id", async function(req, res) {
         updatedDocument
        )
        .then(reply => res.status(200).json({
-        res: "updated"
+        _msg: "successful",
+        data: updatedDocument
        }) )
-       .catch(error => res.status(200).json({
-        res: "failed"
+       .catch(error => res.status(500).json({
+        error: "Internal server error"
        }))
 });
 

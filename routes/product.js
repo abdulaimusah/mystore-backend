@@ -20,9 +20,12 @@ router.get("/:id", async function(req, res) {
      dbo.getDb()
      .collection("products")
      .findOne(query)
-     .then(result => res.json(result))
-     .catch(err => res.status(200).json({
-      res: "failed"
+     .then(result => res.status(200).json({
+      _msg: "successful",
+      data: result
+     }))
+     .catch(err => res.status(500).json({
+      error: "Internal server error"
      }));
 
   });

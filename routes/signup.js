@@ -1,30 +1,71 @@
 var express = require('express');
+var yup = require("yup");
+var jwt = require("jsonwebtoken");
 var dbo = require("../db/conn");
+var bcrypt = require("bcryptjs");
+
+require("dotenv").config();
 
 
 var router = express.Router();
 
 
 
-router.post("/", (req, res) => {
-    const dbConnect = dbo.getDb();
-    const { username, password } = req.body;
-
-    const usersCollection = dbConnect.collection("users");
+router.post("/", async (req, res) => {
 
     
+
+    try {
+      // Define the validation schema for the request body
+      const schema = yup.object().shape({
+        email: yup.string().email().required(),
+        password: yup
+          .string()
+          .min(8)
+          .matches(
+            /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/,
+            "Invalid password"
+          )
+          .required(),
+      });
+  
+      // Validate the request body against the schema
+      await schema.validate(req.body);
+
+      const dbConnect = dbo.getDb();
+      const { email, password } = req.body;
+
+      // Hash the password using bcrypt
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = await bcrypt.hash(password, salt);
+
+      const usersCollection = dbConnect.collection("users");
+    
       
-        usersCollection.insertOne({ username, password }, (err, result) => {
+      usersCollection.insertOne({ email, hashedPassword }, (err, result) => {
           if (err) {
-            res.status(200).json({
-                res: "failed",
+            res.status(500).json({
+                error: "internal server error"
             });
           } else {
+            const token = jwt.sign(
+              {
+                email: email,
+              },
+              process.env.JWT_SECRET,
+              { expiresIn: "24h" } 
+            ); 
             res.status(200).json({
-                res: "User created",
+                _msg: "User created",
+                data: token
             });
           }
         });
-    
+    }
+    catch (error) {
+        res.status(400).json({
+          error: error.message
+        })
+    }
 });
 module.exports = router;

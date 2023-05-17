@@ -22,14 +22,15 @@ router.post("/", async function(req, res) {
      .collection("products")
      .insertOne(matchDocument, function (err, result) {
        if (err) {
-         res.status(200).json({
-          res: "failed"
+         res.status(500).json({
+          error: "Internal server error"
          });
        }
        else {
          console.log("Added a product with id: ", result.insertedId);
          res.status(200).json({
-          res: "added"
+          _msg: "successful",
+          data: matchDocument
          });
        }
      });
