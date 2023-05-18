@@ -18,15 +18,15 @@ router.post("/", async (req, res) => {
     try {
       // Define the validation schema for the request body
       const schema = yup.object().shape({
-        email: yup.string().email().required(),
+        email: yup.string().email("Email should be valid email").required("Email is required"),
         password: yup
           .string()
           .min(8)
           .matches(
             /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[A-Z]).{8,}$/,
-            "Invalid password"
+            "Password must have at least one upper case letter and special character"
           )
-          .required(),
+          .required("Password is required"),
       });
   
       // Validate the request body against the schema
