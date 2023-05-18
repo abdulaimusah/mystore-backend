@@ -9,6 +9,9 @@ require("dotenv").config();
 var router = express.Router();
 
 router.post("/", async (req, res) => {
+	
+	const {email, password} = req.body;
+
 	try {
 		// Define the validation schema for the request body
 		const schema = yup.object().shape({
