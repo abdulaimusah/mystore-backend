@@ -4,8 +4,25 @@ var dbo = require("../db/conn");
 
 var router = express.Router();
 
+// middleware to check for authorization
+function checkAuth(req, res, next) {
+  const authHeader = decodeURIComponent(req.headers.authorization);
+  if (!authHeader) {
+    return res.status(401).json({ error: "Missing authorization header" });
+  }
+  const token = authHeader.split(" ")[1];
 
-router.post("/", async function(req, res) {
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { email: decodedToken.email };
+    next();
+  } catch (error) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+}
+
+
+router.post("/", checkAuth, async function(req, res) {
     const dbConnect = dbo.getDb();
 
     const matchDocument = {

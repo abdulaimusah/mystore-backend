@@ -4,7 +4,24 @@ const { ObjectId } = require('mongodb');
 
 var router = express.Router();
 
-router.put("/:id", async function(req, res) {
+// middleware to check for authorization
+function checkAuth(req, res, next) {
+  const authHeader = decodeURIComponent(req.headers.authorization);
+  if (!authHeader) {
+    return res.status(401).json({ error: "Missing authorization header" });
+  }
+  const token = authHeader.split(" ")[1];
+
+  try {
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = { email: decodedToken.email };
+    next();
+  } catch (error) {
+    res.status(401).json({ error: "Invalid token" });
+  }
+}
+
+router.put("/:id", checkAuth, async function(req, res) {
       
       // retrieve requested post ID
       const requestId = req.params.id.trim();
