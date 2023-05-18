@@ -9,7 +9,7 @@ require("dotenv").config();
 var router = express.Router();
 
 router.post("/", async (req, res) => {
-	
+
 	const {email, password} = req.body;
 
 	try {
@@ -66,6 +66,8 @@ router.post("/", async (req, res) => {
 			data: token,
 		});
 	} catch (error) {
+
+		console.log("ERR**", error);
 		
 		res.status(400).json({
 			error: error.message
