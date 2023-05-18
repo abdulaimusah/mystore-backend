@@ -42,7 +42,10 @@ router.post("/", async (req, res) => {
       const usersCollection = dbConnect.collection("users");
     
       
-      usersCollection.insertOne({ email, hashedPassword }, (err, result) => {
+      usersCollection.insertOne({ 
+        email: email,
+        password: hashedPassword,
+       }, (err, result) => {
           if (err) {
             res.status(500).json({
                 error: "internal server error"

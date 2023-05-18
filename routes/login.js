@@ -9,8 +9,7 @@ require("dotenv").config();
 var router = express.Router();
 
 router.post("/", async (req, res) => {
-
-	const {email, password} = req.body;
+	const { email, password } = req.body;
 
 	try {
 		// Define the validation schema for the request body
@@ -66,12 +65,14 @@ router.post("/", async (req, res) => {
 			data: token,
 		});
 	} catch (error) {
+		// Handle validation errors
+		if (error.name === "ValidationError") {
+			return res.status(400).json({ error: error.message });
+		}
 
-		console.log("ERR**", error);
-		
-		res.status(400).json({
-			error: error.message
-		});
+		// Handle other errors
+		console.error(error);
+		res.status(500).json({ error: "Internal server error" });
 	}
 });
 
