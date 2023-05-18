@@ -1,6 +1,6 @@
 var express = require('express');
 var dbo = require("../db/conn");
-
+var jwt = require('jsonwebtoken');
 
 var router = express.Router();
 
