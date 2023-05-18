@@ -24,7 +24,7 @@ router.post("/", async (req, res) => {
 		});
 
 		// Validate the request body against the schema
-		const { email, password } = await schema.validate(req.body);
+		await schema.validate(req.body);
 
 		// get databsae connection and connect
 		const dbConnect = dbo.getDb();
